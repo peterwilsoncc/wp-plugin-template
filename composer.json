@@ -1,0 +1,24 @@
+{
+    "name": "peterwilsoncc/wp-plugin-template",
+    "description": "WP Plugin Template.",
+    "type": "wordpress-plugin",
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "wp-coding-standards/wpcs": "^3.0",
+        "yoast/phpunit-polyfills": "^2.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Peter Wilson",
+            "email": "peter@peterwilson.cc"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
