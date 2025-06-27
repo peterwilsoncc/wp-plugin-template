@@ -9,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: WP Plugin Template
- * Description:
+ * Description:  A template for creating WordPress plugins.
  * Version: 1.0.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
