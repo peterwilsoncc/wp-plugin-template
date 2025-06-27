@@ -64,6 +64,7 @@ class Test_Plugin_Versions extends WP_UnitTestCase {
 			return;
 		}
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- fine for the tests.
 		$package_data = json_decode( file_get_contents( $package_file ), true );
 		$this->assertSame( PLUGIN_VERSION, $package_data['version'], 'The version in package.json does not match the plugin version constant.' );
 	}
@@ -79,6 +80,7 @@ class Test_Plugin_Versions extends WP_UnitTestCase {
 			return;
 		}
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- fine for the tests.
 		$package_lock_data = json_decode( file_get_contents( $package_lock_file ), true );
 		$this->assertSame( PLUGIN_VERSION, $package_lock_data['version'], 'The version in package-lock.json does not match the plugin version constant.' );
 		$this->assertSame( PLUGIN_VERSION, $package_lock_data['packages']['']['version'], "The packages['']['version'] in package-lock.json packages does not match the plugin version constant." );
@@ -103,6 +105,7 @@ class Test_Plugin_Versions extends WP_UnitTestCase {
 			return;
 		}
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- fine for the tests.
 		$composer_data = json_decode( file_get_contents( $composer_file ), true );
 		$this->assertArrayNotHasKey( 'version', $composer_data, 'The version key should not be present in composer.json.' );
 	}
