@@ -1,0 +1,25 @@
+name: Plugin asset/readme update
+on:
+  push:
+    branches:
+    - main
+jobs:
+  update_assets:
+    name: Push asset update to WordPress.org
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@master
+
+    - name: Remove readme.md from WordPress.org deploy.
+      run: |
+        git rm readme.md
+        git config --global user.email "10upbot+github@10up.com"
+        git config --global user.name "10upbot on GitHub"
+        git commit -m "Remove readme.md for WordPress.org deploy"
+
+    - name: WordPress.org plugin asset/readme update
+      uses: 10up/action-wordpress-plugin-asset-update@stable
+      env:
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
