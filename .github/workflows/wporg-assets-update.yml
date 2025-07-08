@@ -5,6 +5,8 @@ on:
     - main
 jobs:
   update_assets:
+    # Disable workflow until release on WordPress.org
+    if: false
     name: Push asset update to WordPress.org
     runs-on: ubuntu-latest
     steps:

@@ -6,6 +6,8 @@ on:
 
 jobs:
   deploy_to_wp_repository:
+    # Disable workflow until release on WordPress.org
+    if: false
     name: Deploy to WP.org
     runs-on: ubuntu-latest
     steps:
