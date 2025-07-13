@@ -13,6 +13,8 @@ const OPTIONAL  = 0;
 const REQUIRED  = 1;
 const FORBIDDEN = 2;
 
+const WP_ORG_ASSETS_DIR = __DIR__ . '/../.wordpress-org';
+
 /**
  * Test Plugin Readme and PHP Headers
  */
@@ -310,5 +312,80 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 			$headers[ $header ] = array( $header );
 		}
 		return $headers;
+	}
+
+	/**
+	 * Ensure that the plugin banner includes a low resolution version.
+	 *
+	 * Per the plugin asset guidelines, the high resolution (retina) banner can
+	 * not be used alone, it must be accompanied by a low resolution version.
+	 *
+	 * @dataProvider data_banner_includes_low_res_version
+	 *
+	 * @param string $banner Hi-res banner file name to test.
+	 */
+	public function test_banner_includes_low_res_version( $banner ) {
+		// Remove the extension from the banner file name.
+		$high_res_banner_file_name = pathinfo( $banner, PATHINFO_FILENAME ) . '.';
+
+		$low_res_banner_file_name = str_replace(
+			'1544x500',
+			'772x250',
+			$high_res_banner_file_name
+		);
+
+		$file_list = scandir( WP_ORG_ASSETS_DIR );
+		// Search for the low resolution banner file.
+		$low_res_files = array_filter(
+			$file_list,
+			function ( $file ) use ( $low_res_banner_file_name ) {
+				return str_starts_with( $file, $low_res_banner_file_name );
+			}
+		);
+
+		$this->assertNotEmpty(
+			$low_res_files,
+			"Low resolution banner file for '{$banner}' does not exist."
+		);
+	}
+
+	/**
+	 * Data provider for test_banner_includes_low_res_version.
+	 *
+	 * @return array[] Data provider.
+	 */
+	public function data_banner_includes_low_res_version() {
+		if ( ! is_dir( WP_ORG_ASSETS_DIR ) ) {
+			// No assets directory, so no banners.
+			return array();
+		}
+
+		$file_list = scandir( WP_ORG_ASSETS_DIR );
+
+		if ( false === $file_list ) {
+			// No files found, so no banners.
+			return array();
+		}
+
+		// Filter out the files that do not begin with `banner-1544x500`.
+		$banner_files = array_filter(
+			$file_list,
+			function ( $file ) {
+				return str_starts_with( $file, 'banner-1544x500' );
+			}
+		);
+
+		if ( empty( $banner_files ) ) {
+			// No banners found.
+			return array();
+		}
+
+		// Convert each file name to a data provider entry.
+		$banner_data = array();
+		foreach ( $banner_files as $banner_file ) {
+			$banner_data[ $banner_file ] = array( $banner_file );
+		}
+
+		return $banner_data;
 	}
 }
