@@ -326,20 +326,20 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 */
 	public function test_banner_includes_low_res_version( $banner ) {
 		// Remove the extension from the banner file name.
-		$high_res_banner_file_name = pathinfo( $banner, PATHINFO_FILENAME ) . '.';
+		$high_res_banner_prefix = pathinfo( $banner, PATHINFO_FILENAME ) . '.';
 
-		$low_res_banner_file_name = str_replace(
+		$low_res_banner_prefix = str_replace(
 			'1544x500',
 			'772x250',
-			$high_res_banner_file_name
+			$high_res_banner_prefix
 		);
 
 		$file_list = scandir( WP_ORG_ASSETS_DIR );
 		// Search for the low resolution banner file.
 		$low_res_files = array_filter(
 			$file_list,
-			function ( $file ) use ( $low_res_banner_file_name ) {
-				return str_starts_with( $file, $low_res_banner_file_name );
+			function ( $file ) use ( $low_res_banner_prefix ) {
+				return str_starts_with( $file, $low_res_banner_prefix );
 			}
 		);
 
