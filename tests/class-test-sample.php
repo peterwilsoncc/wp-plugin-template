@@ -2,7 +2,7 @@
 /**
  * Test Template
  *
- * @package PWCC\WpPluginTemplate\Tests
+ * @package WpPluginTemplate
  */
 
 namespace PWCC\WpPluginTemplate\Tests;

@@ -2,7 +2,7 @@
 /**
  * Test Plugin Readme and PHP Headers
  *
- * @package PWCC\WpPluginTemplate\Tests
+ * @package WpPluginTemplate
  */
 
 namespace PWCC\WpPluginTemplate\Tests;

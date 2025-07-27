@@ -2,7 +2,7 @@
 /**
  * Test Plugin Versions match.
  *
- * @package PWCC\WpPluginTemplate\Tests
+ * @package WpPluginTemplate
  */
 
 namespace PWCC\WpPluginTemplate\Tests;

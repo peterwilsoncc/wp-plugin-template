@@ -2,7 +2,7 @@
 /**
  * PHPUnit bootstrap file.
  *
- * @package Post_Content_Warnings
+ * @package WpPluginTemplate
  */
 
 $_pwcc_tests_directory = getenv( 'WP_TESTS_DIR' );

@@ -3,9 +3,6 @@
  * WP Plugin Template
  *
  * @package           WpPluginTemplate
- * @author            Peter Wilson
- * @copyright         2023 Peter Wilson
- * @license           MIT
  */
 
 namespace PWCC\WpPluginTemplate;
