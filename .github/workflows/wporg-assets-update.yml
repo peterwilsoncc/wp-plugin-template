@@ -13,6 +13,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@master
 
+    - name: Install Subversion.
+      run: |
+        # Check if SVN is installed, if not install it.
+        if ! command -v svn &> /dev/null
+        then
+            sudo apt-get update -y
+            sudo apt-get install -y subversion
+        fi
+
     - name: Create .wordpress-org directory if it doesn't exist.
       run: mkdir -p .wordpress-org
 

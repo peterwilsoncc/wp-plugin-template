@@ -14,6 +14,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Install Subversion.
+      run: |
+        # Check if SVN is installed, if not install it.
+        if ! command -v svn &> /dev/null
+        then
+            sudo apt-get update -y
+            sudo apt-get install -y subversion
+        fi
+
     - name: Remove readme.md from WordPress.org deploy.
       run: |
         git rm readme.md
