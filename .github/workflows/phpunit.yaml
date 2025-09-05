@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  run:
+  phpunit:
     runs-on: ubuntu-latest
     env:
       DB_DATABASE: wordpress_test
@@ -55,3 +55,17 @@ jobs:
       env:
         WP_TESTS_DIR: ${{ runner.temp }}/wordpress-tests-lib
         WP_CORE_DIR: ${{ runner.temp }}/wordpress
+
+  required-status-checks:
+    # This should be configured as the required status check in branch protection rules
+    #
+    # Using a summary job allows for easier management of the PHP Unit matrix as the
+    # required status check will not need to be updated when matrix items change.
+    name: PHPUnit Required Status Checks
+    runs-on: 'ubuntu-24.04'
+    needs: [ 'phpunit' ]
+    if: ${{ always() }}
+    steps:
+      - name: Detect any failing status checks
+        run: |
+          [[ "${{ join(needs.*.result, ' ') }}" =~ ^(success ?)+$ ]] || exit 1

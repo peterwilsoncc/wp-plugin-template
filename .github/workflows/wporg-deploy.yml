@@ -14,12 +14,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Install Subversion.
+      run: |
+        # Check if SVN is installed, if not install it.
+        if ! command -v svn &> /dev/null
+        then
+            sudo apt-get update -y
+            sudo apt-get install -y subversion
+        fi
+
     - name: Remove readme.md from WordPress.org deploy.
       run: |
         git rm readme.md
         git config --global user.email "10upbot+github@10up.com"
         git config --global user.name "10upbot on GitHub"
         git commit -m "Remove readme.md for WordPress.org deploy"
+
+    - name: Create .wordpress-org directory if it doesn't exist.
+      run: mkdir -p .wordpress-org
 
     - name: WordPress Plugin Deploy
       id: deploy
