@@ -95,6 +95,20 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	);
 
 	/**
+	 * Deprecated headers mapping.
+	 *
+	 * Opinionated: These headers are parsed correctly by the WordPress.org
+	 * plugin repository but go against the recommended headers in the
+	 * documentation.
+	 *
+	 * @var array<string,string> Mapping of deprecated header to current header.
+	 */
+	public static $deprecated_headers = array(
+		'Tested'   => 'Tested up to',
+		'Requires' => 'Requires at least',
+	);
+
+	/**
 	 * Headers defined in the plugins readme.text file.
 	 *
 	 * @var string[] Headers defined in the readme spec Header => value.
@@ -109,35 +123,46 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	public static $defined_plugin_headers = array();
 
 	/**
+	 * Plugin file names.
+	 *
+	 * @var string[] The readme and plugin file names.
+	 */
+	public static $file_names = array();
+
+	/**
 	 * Set up shared fixtures.
 	 */
 	public static function wpSetupBeforeClass() {
-		// Get the readme headers.
-		$readme_file_data = array();
-		foreach ( self::$readme_headers as $header => $required ) {
-			$readme_file_data[ $header ] = $header;
-		}
-		self::$defined_readme_headers = get_file_data(
-			__DIR__ . '/../readme.txt',
-			$readme_file_data
-		);
-		self::$defined_readme_headers = array_filter( self::$defined_readme_headers );
+		// Get the file names.
+		self::$file_names['readme'] = __DIR__ . '/../readme.txt';
 
-		// Get the plugin headers.
-		// Plugin name.
 		$plugin_file_name = basename( dirname( __DIR__ ) ) . '.php';
 		if ( ! file_exists( __DIR__ . "/../{$plugin_file_name}" ) ) {
 			// Fallback to the generic plugin file name.
 			$plugin_file_name = 'plugin.php';
 		}
 
+		self::$file_names['plugin'] = __DIR__ . "/../{$plugin_file_name}";
+
+		// Get the readme headers.
+		$readme_file_data = array();
+		foreach ( self::$readme_headers as $header => $required ) {
+			$readme_file_data[ $header ] = $header;
+		}
+		self::$defined_readme_headers = get_file_data(
+			self::$file_names['readme'],
+			$readme_file_data
+		);
+		self::$defined_readme_headers = array_filter( self::$defined_readme_headers );
+
+		// Get the plugin headers.
 		$plugin_file_data = array();
 		foreach ( self::$plugin_headers as $header => $required ) {
 			$plugin_file_data[ $header ] = $header;
 		}
 
 		self::$defined_plugin_headers = get_file_data(
-			__DIR__ . "/../{$plugin_file_name}",
+			self::$file_names['plugin'],
 			$plugin_file_data
 		);
 		self::$defined_plugin_headers = array_filter( self::$defined_plugin_headers );
@@ -312,6 +337,45 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 			$headers[ $header ] = array( $header );
 		}
 		return $headers;
+	}
+
+	/**
+	 * Test that no deprecated headers are used.
+	 *
+	 * @dataProvider data_no_deprecated_headers
+	 *
+	 * @param string $file              File to test, either 'readme' or 'plugin'.
+	 * @param string $deprecated_header Deprecated header to test.
+	 * @param string $correct_header    Correct header to use.
+	 */
+	public function test_no_deprecated_headers( $file, $deprecated_header, $correct_header ) {
+		$file_name    = 'readme' === $file ? self::$file_names['readme'] : self::$file_names['plugin'];
+		$file_data    = array(
+			$deprecated_header => $deprecated_header,
+		);
+		$defined_data = get_file_data(
+			$file_name,
+			$file_data
+		);
+		$defined_data = array_filter( $defined_data );
+		$this->assertArrayNotHasKey( $deprecated_header, $defined_data, "The {$file} file header '{$deprecated_header}' is deprecated. Use '{$correct_header}' instead." );
+	}
+
+	/**
+	 * Data provider for test_no_deprecated_headers.
+	 *
+	 * @return array[] Data provider.
+	 */
+	public function data_no_deprecated_headers() {
+		$files = array( 'readme', 'plugin' );
+		foreach ( $files as $file ) {
+			foreach ( self::$deprecated_headers as $deprecated_header => $correct_header ) {
+				$test_name           = "{$file} - {$deprecated_header}";
+				$tests[ $test_name ] = array( $file, $deprecated_header, $correct_header );
+			}
+		}
+
+		return $tests;
 	}
 
 	/**
