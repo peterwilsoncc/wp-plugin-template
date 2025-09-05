@@ -13,6 +13,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@master
 
+    - name: Create .wordpress-org directory if it doesn't exist.
+      run: mkdir -p .wordpress-org
+
     - name: Remove readme.md from WordPress.org deploy.
       run: |
         git rm readme.md

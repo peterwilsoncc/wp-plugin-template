@@ -21,6 +21,9 @@ jobs:
         git config --global user.name "10upbot on GitHub"
         git commit -m "Remove readme.md for WordPress.org deploy"
 
+    - name: Create .wordpress-org directory if it doesn't exist.
+      run: mkdir -p .wordpress-org
+
     - name: WordPress Plugin Deploy
       id: deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
