@@ -8,6 +8,7 @@ on: # rebuild any PRs and main branch changes
 
 jobs:
   test:
+    name: 'Run WordPress Plugin Check'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
