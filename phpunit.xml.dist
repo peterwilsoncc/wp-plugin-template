@@ -9,7 +9,7 @@
 	>
 	<testsuites>
 		<testsuite name="wp-plugin-template">
-			<directory prefix="class-test-" suffix=".php">./tests/</directory>
+			<directory suffix=".php">./tests/tests/</directory>
 			<!-- exclude>./tests/class-test-sample.php</exclude -->
 		</testsuite>
 	</testsuites>
