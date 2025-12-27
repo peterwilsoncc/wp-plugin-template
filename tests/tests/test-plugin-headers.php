@@ -138,8 +138,6 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 		self::$file_names['readme'] = self::PLUGIN_ROOT_DIR . '/readme.txt';
 
 		$plugin_file_name = basename( realpath( self::PLUGIN_ROOT_DIR ) ) . '.php';
-		var_dump( $plugin_file_name );
-		// exit;
 		if ( ! file_exists( self::PLUGIN_ROOT_DIR . "/{$plugin_file_name}" ) ) {
 			// Fallback to the generic plugin file name.
 			$plugin_file_name = 'plugin.php';
