@@ -8,6 +8,7 @@
 # Dependecies.
 /vendor/
 /node_modules/
+/composer.lock
 
 # Misc.
 /.phpunit.result.cache
