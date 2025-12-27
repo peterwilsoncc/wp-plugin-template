@@ -186,7 +186,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 *
 	 * @return array[] Data provider.
 	 */
-	public function data_required_readme_headers() {
+	public static function data_required_readme_headers() {
 		$required_headers = array_filter(
 			self::$readme_headers,
 			function ( $status ) {
@@ -216,7 +216,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 *
 	 * @return array[] Data provider.
 	 */
-	public function data_forbidden_readme_headers() {
+	public static function data_forbidden_readme_headers() {
 		$forbidden_headers = array_filter(
 			self::$readme_headers,
 			function ( $status ) {
@@ -247,7 +247,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 *
 	 * @return array[] Data provider.
 	 */
-	public function data_required_plugin_headers() {
+	public static function data_required_plugin_headers() {
 		$required_headers = array_filter(
 			self::$plugin_headers,
 			function ( $status ) {
@@ -277,7 +277,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 *
 	 * @return array[] Data provider.
 	 */
-	public function data_forbidden_plugin_headers() {
+	public static function data_forbidden_plugin_headers() {
 		$forbidden_headers = array_filter(
 			self::$plugin_headers,
 			function ( $status ) {
@@ -323,7 +323,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 *
 	 * @return array[] Data provider.
 	 */
-	public function data_common_headers_match() {
+	public static function data_common_headers_match() {
 		// Can't use the defined headers as they are not defined until after this is called.
 		$common_headers = array_intersect_key(
 			self::$readme_headers,
@@ -367,7 +367,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 *
 	 * @return array[] Data provider.
 	 */
-	public function data_no_deprecated_headers() {
+	public static function data_no_deprecated_headers() {
 		$files = array( 'readme', 'plugin' );
 		foreach ( $files as $file ) {
 			foreach ( self::$deprecated_headers as $deprecated_header => $correct_header ) {
@@ -419,7 +419,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 *
 	 * @return array[] Data provider.
 	 */
-	public function data_banner_includes_low_res_version() {
+	public static function data_banner_includes_low_res_version() {
 		if ( ! is_dir( self::WP_ORG_ASSETS_DIR ) ) {
 			// No assets directory, so no banners.
 			return array();
