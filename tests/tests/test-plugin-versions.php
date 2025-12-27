@@ -20,7 +20,7 @@ class Test_Plugin_Versions extends WP_UnitTestCase {
 	 * Test Stable Tag in readme.txt matches plugin version.
 	 */
 	public function test_stable_tag_matches_plugin_version() {
-		$readme_file = __DIR__ . '/../readme.txt';
+		$readme_file = __DIR__ . '/../../readme.txt';
 		$readme_data = get_file_data(
 			$readme_file,
 			array(
@@ -37,14 +37,14 @@ class Test_Plugin_Versions extends WP_UnitTestCase {
 	public function test_plugin_version_header() {
 		// Get the plugin headers.
 		// Plugin name.
-		$plugin_file_name = basename( dirname( __DIR__ ) ) . '.php';
-		if ( ! file_exists( __DIR__ . "/../{$plugin_file_name}" ) ) {
+		$plugin_file_name = basename( dirname( __DIR__ . '/..' ) ) . '.php';
+		if ( ! file_exists( __DIR__ . "/../../{$plugin_file_name}" ) ) {
 			// Fallback to the generic plugin file name.
 			$plugin_file_name = 'plugin.php';
 		}
 
 		$plugin_file_data = get_file_data(
-			__DIR__ . "/../{$plugin_file_name}",
+			__DIR__ . "/../../{$plugin_file_name}",
 			array(
 				'Version' => 'Version',
 			)
@@ -57,7 +57,7 @@ class Test_Plugin_Versions extends WP_UnitTestCase {
 	 * Test the plugin version in package.json matches the plugin version constant.
 	 */
 	public function test_package_json_version() {
-		$package_file = __DIR__ . '/../package.json';
+		$package_file = __DIR__ . '/../../package.json';
 		if ( ! file_exists( $package_file ) ) {
 			// Package file does not exist, consider this test passed.
 			$this->assertTrue( true );
@@ -73,7 +73,7 @@ class Test_Plugin_Versions extends WP_UnitTestCase {
 	 * Test the plugin version in package-lock.json matches the plugin version constant.
 	 */
 	public function test_package_lock_json_version() {
-		$package_lock_file = __DIR__ . '/../package-lock.json';
+		$package_lock_file = __DIR__ . '/../../package-lock.json';
 		if ( ! file_exists( $package_lock_file ) ) {
 			// Package lock file does not exist, consider this test passed.
 			$this->assertTrue( true );
@@ -98,7 +98,7 @@ class Test_Plugin_Versions extends WP_UnitTestCase {
 	 * > some point due to human error.
 	 */
 	public function test_composer_version_is_not_present() {
-		$composer_file = __DIR__ . '/../composer.json';
+		$composer_file = __DIR__ . '/../../composer.json';
 		if ( ! file_exists( $composer_file ) ) {
 			// Composer file does not exist, consider this test passed.
 			$this->assertTrue( true );

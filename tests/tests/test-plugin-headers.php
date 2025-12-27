@@ -13,7 +13,7 @@ const OPTIONAL  = 0;
 const REQUIRED  = 1;
 const FORBIDDEN = 2;
 
-const WP_ORG_ASSETS_DIR = __DIR__ . '/../.wordpress-org';
+const WP_ORG_ASSETS_DIR = __DIR__ . '/../../.wordpress-org';
 
 /**
  * Test Plugin Readme and PHP Headers
@@ -134,15 +134,15 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 */
 	public static function wpSetupBeforeClass() {
 		// Get the file names.
-		self::$file_names['readme'] = __DIR__ . '/../readme.txt';
+		self::$file_names['readme'] = __DIR__ . '/../../readme.txt';
 
-		$plugin_file_name = basename( dirname( __DIR__ ) ) . '.php';
-		if ( ! file_exists( __DIR__ . "/../{$plugin_file_name}" ) ) {
+		$plugin_file_name = basename( dirname( __DIR__ . '/..' ) ) . '.php';
+		if ( ! file_exists( __DIR__ . "/../../{$plugin_file_name}" ) ) {
 			// Fallback to the generic plugin file name.
 			$plugin_file_name = 'plugin.php';
 		}
 
-		self::$file_names['plugin'] = __DIR__ . "/../{$plugin_file_name}";
+		self::$file_names['plugin'] = __DIR__ . "/../../{$plugin_file_name}";
 
 		// Get the readme headers.
 		$readme_file_data = array();
