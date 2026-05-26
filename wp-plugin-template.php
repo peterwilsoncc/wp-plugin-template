@@ -21,6 +21,10 @@
 
 namespace PWCC\WpPluginTemplate;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 require_once __DIR__ . '/inc/namespace.php';
 
 bootstrap();
