@@ -21,11 +21,11 @@ echo "Renaming plugin to: $CAMEL_CASE_NAME"
 echo "Using kebab case: $KEBAB_CASE_NAME"
 
 # Search all files for the old plugin name and replace it with the new one
-sed -i '' "s/${OLD_NAME}/${NEW_NAME}/g" *.* inc/*.* tests/*.*
+sed -i '' "s/${OLD_NAME}/${NEW_NAME}/g" *.* inc/*.* tests/tests/*.*
 # Camel case replacements
-sed -i '' "s/${OLD_CAMEL_CASE_NAME}/${CAMEL_CASE_NAME}/g" *.* inc/*.* tests/*.*
+sed -i '' "s/${OLD_CAMEL_CASE_NAME}/${CAMEL_CASE_NAME}/g" *.* inc/*.* tests/tests/*.*
 # Kebab case replacements
-sed -i '' "s/${OLD_KEBAB_CASE_NAME}/${KEBAB_CASE_NAME}/g" *.* inc/*.* tests/*.*
+sed -i '' "s/${OLD_KEBAB_CASE_NAME}/${KEBAB_CASE_NAME}/g" *.* inc/*.* tests/tests/*.*
 
 # Replace the plugin description in the main file with the new name
 # Rename the main plugin file
