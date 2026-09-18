@@ -5,11 +5,10 @@ on:
     - cron:  '0 0 * * *'
   push:
     branches:
-      - develop
-      - trunk
+      - main
   pull_request:
     branches:
-      - develop
+      - main
 
 # Cancels all previous workflow runs for pull requests that have not completed.
 concurrency:
